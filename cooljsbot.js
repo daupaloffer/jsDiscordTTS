@@ -8,6 +8,7 @@ const { exec } = require('child_process');
 
 const bot = new Discord.Client();
 const prefix = '';
+let tatetts = false;
 //const tate = bot.users.fetch(191634797897056265)
 
 bot.on('ready', () => {
@@ -16,7 +17,6 @@ bot.on('ready', () => {
 });
 
 bot.on('message', async msg => {
-
 	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
@@ -42,8 +42,7 @@ bot.on('message', async msg => {
 		const True = 'True';
 		if (True) {
 			if (msg.member.voice.channel) {
-				let tts = args.join(' ');
-				awstts(tts,msg.member.voice.channel,msg.author.id);
+				awstts(args,msg.member.voice.channel,msg.author.id);
 			}
 		}
 		else {
@@ -61,9 +60,24 @@ bot.on('message', async msg => {
 		var num = Math.floor(Math.random() * 100) + 0;
 		await msg.reply('I give '+thing+' **'+num+'%** <:smile:503737897812230144>');
 	}
+
+	if (msg.author.id === '191634797897056265' && tatetts === true) {
+		awstts(args,msg.member.voice.channel,msg.author.id);
+	}
+
+	if (command === '.on') {
+		tatetts = true;
+		console.log('Tate auto-TTS enabled..')
+	}
+
+	else if (command === '.off') {
+		tatetts = false;
+		console.log('Tate auto-TTS disabled..')
+	}
 });
 
-async function awstts(tts,channel,author) {
+async function awstts(args,channel,author) {
+	let tts = args.join(' ');
 	var apos = tts.replace(/\u2019/g, "'");
 	var utftts = utf8.encode('<speak>'+apos+'</speak>');
 
