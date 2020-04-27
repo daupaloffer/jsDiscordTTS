@@ -43,43 +43,7 @@ bot.on('message', async msg => {
 		if (True) {
 			if (msg.member.voice.channel) {
 				let tts = args.join(' ');
-				var apos = tts.replace(/\u2019/g, "'");
-				var utftts = utf8.encode('<speak>'+apos+'</speak>');
-				//var uutftts = utftts.replace(/\u2019/g, "'");
-				/*fs.writeFile('tts.txt', utftts, function(err) {
-					if(err) {
-						return console.log(err);
-					}
-					console.log('TTS file saved');
-				});*/
-				console.log('Joining voice chanel..');
-				//console.log(msg.author.id);
-				const connection = await msg.member.voice.channel.join();
-				//const child = exec('node_modules/tts-cli/tts.js tts.txt brian.mp3 --type ssml --voice Brian');
-				let child
-				if (msg.author.id === '260065470974001153') {
-					child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin');
-				} else if (msg.author.id === '601968691998883861') {
-					child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ivy');
-				} else if (msg.author.id === '277735371289264128') {
-					child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Geraint');
-				} else if (msg.author.id === '218286293170388992') {
-					child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Russell');
-				} else if (msg.author.id === '201762678585294849') {
-					child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ruben');
-				} else if (msg.author.id === '134694626832547840') {
-					child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Maxim');
-				} else {
-					child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Brian');
-				}
-				child.on('exit', async function() {
-					const dispatcher = connection.play('brian.mp3');
-
-					/*dispatcher.on('finish', async () => {
-						console.log('Leaving voice channel..');
-						await msg.member.voice.channel.leave();
-					});*/
-				});
+				awstts(tts,msg.member.voice.channel,msg.author.id);
 			}
 		}
 		else {
@@ -99,6 +63,60 @@ bot.on('message', async msg => {
 	}
 });
 
+async function awstts(tts,channel,author) {
+	var apos = tts.replace(/\u2019/g, "'");
+	var utftts = utf8.encode('<speak>'+apos+'</speak>');
+
+	//var uutftts = utftts.replace(/\u2019/g, "'");
+	/*fs.writeFile('tts.txt', utftts, function(err) {
+		if(err) {
+			return console.log(err);
+		}
+		console.log('TTS file saved');
+	});*/
+	console.log('Joining voice chanel..');
+	//console.log(msg.author.id);
+	const connection = await channel.join();
+	//const child = exec('node_modules/tts-cli/tts.js tts.txt brian.mp3 --type ssml --voice Brian');
+	let child
+
+	if (author === '260065470974001153') {
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin --engine neural');
+	}
+
+	else if (author === '601968691998883861') {
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ivy --engine neural');
+	}
+
+	else if (author === '277735371289264128') {
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Geraint');
+	}
+
+	else if (author === '218286293170388992') {
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Russell');
+	}
+
+	else if (author === '201762678585294849') {
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ruben');
+	}
+
+	else if (author === '134694626832547840') {
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Maxim');
+	}
+
+	else {
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Brian --engine neural');
+	}
+
+	child.on('exit', async function() {
+		const dispatcher = connection.play('brian.mp3');
+
+		/*dispatcher.on('finish', async () => {
+			console.log('Leaving voice channel..');
+			await msg.member.voice.channel.leave();
+		});*/
+	});
+}
 
 
 bot.login('NDMwMTczOTE1NjgwMzQyMDE2.XqYD8A.tFmE-G8SkwxKStZcJwSiMEgGRXs')
