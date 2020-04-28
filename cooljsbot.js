@@ -73,7 +73,7 @@ bot.on('message', async msg => {
 		console.log('Tate auto-TTS disabled..')
 	}
 
-	if (msg.author.id === '191634797897056265' && tatetts === true && !msg.content.toString().includes('.on')) {
+	if (msg.author.id === '260065470974001153' && tatetts === true && !msg.content.toString().includes('.on')) {
 		awstts(msg.content,msg.member.voice.channel,msg.author.id,true);
 	}
 });
@@ -84,7 +84,10 @@ async function awstts(args,channel,author,tate) {
 		var apos = tts.replace(/\u2019/g, "'");
 	}
 
-	var apos = args.toString().replace(/\u2019/g, "'");
+	else {
+		var apos = args.toString().replace(/\u2019/g, "'");
+	}
+
 	var utftts = utf8.encode('<speak>'+apos+'</speak>');
 
 	//var uutftts = utftts.replace(/\u2019/g, "'");
