@@ -61,8 +61,8 @@ bot.on('message', async msg => {
 		await msg.reply('I give '+thing+' **'+num+'%** <:smile:503737897812230144>');
 	}
 
-	if (msg.author.id === '191634797897056265' && tatetts === true) {
-		awstts(args,msg.member.voice.channel,msg.author.id);
+	if (msg.author.id === '601968691998883861' && tatetts === true) {
+		awstts(msg.content,msg.member.voice.channel,msg.author.id);
 	}
 
 	if (command === '.on') {
@@ -99,7 +99,7 @@ async function awstts(args,channel,author) {
 	}
 
 	else if (author === '601968691998883861') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ivy --engine neural');
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ivy');
 	}
 
 	else if (author === '277735371289264128') {
@@ -119,7 +119,7 @@ async function awstts(args,channel,author) {
 	}
 
 	else {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Brian --engine neural');
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Brian');
 	}
 
 	child.on('exit', async function() {
