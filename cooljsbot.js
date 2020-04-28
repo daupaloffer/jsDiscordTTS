@@ -42,7 +42,7 @@ bot.on('message', async msg => {
 		const True = 'True';
 		if (True) {
 			if (msg.member.voice.channel) {
-				awstts(args,msg.member.voice.channel,msg.author.id);
+				awstts(args,msg.member.voice.channel,msg.author.id,false);
 			}
 		}
 		else {
@@ -61,24 +61,30 @@ bot.on('message', async msg => {
 		await msg.reply('I give '+thing+' **'+num+'%** <:smile:503737897812230144>');
 	}
 
-	if (msg.author.id === '601968691998883861' && tatetts === true) {
-		awstts(msg.content,msg.member.voice.channel,msg.author.id);
-	}
-
-	if (command === '.on') {
+	else if (command === '.on') {
 		tatetts = true;
+		msg.channel.send('Auto-TTS enabled..')
 		console.log('Tate auto-TTS enabled..')
 	}
 
 	else if (command === '.off') {
 		tatetts = false;
+		msg.channel.send('Auto-TTS disabled..')
 		console.log('Tate auto-TTS disabled..')
+	}
+
+	if (msg.author.id === '191634797897056265' && tatetts === true && !msg.content.toString().includes('.on')) {
+		awstts(msg.content,msg.member.voice.channel,msg.author.id,true);
 	}
 });
 
-async function awstts(args,channel,author) {
-	let tts = args.join(' ');
-	var apos = tts.replace(/\u2019/g, "'");
+async function awstts(args,channel,author,tate) {
+	if (tate === false) {
+		let tts = args.join(' ');
+		var apos = tts.replace(/\u2019/g, "'");
+	}
+
+	var apos = args.toString().replace(/\u2019/g, "'");
 	var utftts = utf8.encode('<speak>'+apos+'</speak>');
 
 	//var uutftts = utftts.replace(/\u2019/g, "'");
