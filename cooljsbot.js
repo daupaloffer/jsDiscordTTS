@@ -104,7 +104,7 @@ async function awstts(args,channel,author,tate) {
 	let child
 
 	if (author === '260065470974001153') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin --engine neural');
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin');
 	}
 
 	else if (author === '601968691998883861') {
