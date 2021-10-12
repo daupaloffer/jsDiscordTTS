@@ -2,6 +2,10 @@
 cool.mp3
 brian.mp3
 
+# Unix system swap files that don't need to be committed
+.cooljsbot.js.swp
+.cool.swp
+
 # Logs
 logs
 *.log
