@@ -6,6 +6,9 @@ brian.mp3
 .cooljsbot.js.swp
 .cool.swp
 
+# Ignore private token files
+discord_token
+
 # Logs
 logs
 *.log
