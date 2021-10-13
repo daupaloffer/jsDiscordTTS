@@ -3,14 +3,12 @@ const gTTS = require('gtts');
 const utf8 = require('utf8');
 const fs = require('fs');
 
-//const exec = require("child_process").exec
 const { exec } = require('child_process');
 
 var discord_token = '';
 const bot = new Discord.Client();
 const prefix = '';
 var tatetts = false;
-//const tate = bot.users.fetch(191634797897056265)
 
 
 fs.readFile('discord_token', 'utf8', function(err, data) {
@@ -99,17 +97,10 @@ async function awstts(args,channel,author,tate) {
 
 	var utftts = utf8.encode('<speak>'+apos+'</speak>');
 
-	//var uutftts = utftts.replace(/\u2019/g, "'");
-	/*fs.writeFile('tts.txt', utftts, function(err) {
-		if(err) {
-			return console.log(err);
-		}
-		console.log('TTS file saved');
-	});*/
 	console.log('Joining voice chanel..');
-	//console.log(msg.author.id);
+
 	const connection = await channel.join();
-	//const child = exec('node_modules/tts-cli/tts.js tts.txt brian.mp3 --type ssml --voice Brian');
+
 	let child
 
 	if (author === '260065470974001153') {
@@ -142,11 +133,6 @@ async function awstts(args,channel,author,tate) {
 
 	child.on('exit', async function() {
 		const dispatcher = connection.play('brian.mp3');
-
-		/*dispatcher.on('finish', async () => {
-			console.log('Leaving voice channel..');
-			await msg.member.voice.channel.leave();
-		});*/
 	});
 }
 
