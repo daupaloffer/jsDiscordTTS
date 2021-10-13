@@ -2,13 +2,13 @@ const Discord = require('discord.js');
 const gTTS = require('gtts');
 const utf8 = require('utf8');
 const fs = require('fs');
+const exec = require('child_process');
 
-const { exec } = require('child_process');
-
-var discord_token = '';
 const bot = new Discord.Client();
 const prefix = '';
+
 var tatetts = false;
+var discord_token = '';
 
 
 fs.readFile('discord_token', 'utf8', function(err, data) {
