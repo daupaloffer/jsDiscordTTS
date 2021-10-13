@@ -2,19 +2,29 @@ const Discord = require('discord.js');
 const gTTS = require('gtts');
 const utf8 = require('utf8');
 const fs = require('fs');
+const readline = require('readline');
 
 //const exec = require("child_process").exec
 const { exec } = require('child_process');
 
+var discord_token = '';
 const bot = new Discord.Client();
 const prefix = '';
-let tatetts = false;
+var tatetts = false;
 //const tate = bot.users.fetch(191634797897056265)
+
+
+fs.readFile('discord_token', 'utf8', function(err, data) {
+	if (err) throw err;
+	discord_token = data;
+});
+
 
 bot.on('ready', () => {
 	console.log('Logged in as '+bot.user.tag);
 	bot.user.setActivity('with myself', { type: 'PLAYING' });
 });
+
 
 bot.on('message', async msg => {
 	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
@@ -142,4 +152,4 @@ async function awstts(args,channel,author,tate) {
 }
 
 
-bot.login('NDMwMTczOTE1NjgwMzQyMDE2.XqYD8A.tFmE-G8SkwxKStZcJwSiMEgGRXs')
+bot.login(discord_token)
