@@ -2,7 +2,6 @@ const Discord = require('discord.js');
 const gTTS = require('gtts');
 const utf8 = require('utf8');
 const fs = require('fs');
-const readline = require('readline');
 
 //const exec = require("child_process").exec
 const { exec } = require('child_process');
