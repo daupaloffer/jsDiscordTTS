@@ -1,11 +1,11 @@
-const Discord = require('discord.js');
+const discord = require('discord.js');
 const gTTS = require('gtts');
 const utf8 = require('utf8');
 const fs = require('fs');
 const exec = require('child_process');
-const { debug } = require('console');
+const debug = require('console');
 
-const bot = new Discord.Client();
+const bot = new discord.Client();
 const prefix = '';
 const ignored_by_autotts = ['.on','.off','.hmm','tts','stop'];
 
@@ -89,8 +89,9 @@ bot.on('message', async msg => {
 	}
 });
 
-async function awstts(args,channel,author,tate) {
-	if (tate === false) {
+
+async function awstts(args,channel,author,auto) {
+	if (auto === false) {
 		let tts = args.join(' ');
 		var apos = tts.replace(/\u2019/g, "'");
 	}
@@ -100,13 +101,10 @@ async function awstts(args,channel,author,tate) {
 	}
 
 	var utftts = utf8.encode('<speak>'+apos+'</speak>');
-
 	console.log('Joining voice chanel..');
-
 	const connection = await channel.join();
 
 	let child
-
 	if (author === '260065470974001153') {
 		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin');
 	}
