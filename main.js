@@ -3,7 +3,7 @@ const { token } = require('./config.json');
 const utf8 = require('utf8');
 const exec = require('child_process');
 
-const bot = new Client({ intents: [Intents.FLAGS.GUILD_MESSAGES] });
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = '';
 const ignored_by_autotts = ['.on','.off','.hmm','stop'];
 
@@ -21,8 +21,7 @@ bot.once('ready', () => {
 
 
 // Called on message event
-bot.on('messageCreate', msg => {
-	console.log('Message received');
+bot.on('messageCreate', async msg => {
 	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
@@ -44,13 +43,13 @@ bot.on('messageCreate', msg => {
 
 	else if (command === 'stop') {
 		console.log('Stopping voice connection and dispatcher..');
-		msg.member.voice.channel.leave();
+		await msg.member.voice.channel.leave();
 	}
 
 	else if (command === '.hmm') {
 		let thing = args.join(' ');
 		var num = Math.floor(Math.random() * 100) + 0;
-		msg.reply('I give '+thing+' **'+num+'%** :slight_smile:');
+		await msg.reply('I give '+thing+' **'+num+'%** :slight_smile:');
 	}
 
 	else if (command === '.on') {
