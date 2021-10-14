@@ -1,12 +1,11 @@
 const discord = require('discord.js');
-const gTTS = require('gtts');
 const utf8 = require('utf8');
 const fs = require('fs');
 const exec = require('child_process');
 
 const bot = new discord.Client();
 const prefix = '';
-const ignored_by_autotts = ['.on','.off','.hmm','.tts','stop'];
+const ignored_by_autotts = ['.on','.off','.hmm','stop'];
 
 var discord_token = '';
 var autotts = [];
@@ -32,21 +31,6 @@ bot.on('message', async msg => {
 
 	if (msg.content === 'ping') {
 		msg.reply('fuck you');
-	}
-
-	// Former TTS method using gTTS (Google)
-	else if (command === '.tts') {
-		let tts = args.join(' ');
-		console.log(tts);
-		var gtts = new gTTS(tts, 'en');
-		gtts.save('cool.mp3');
-
-		const connection = await msg.member.voice.channel.join();
-		msg.reply('fuck you');
-		const dispatcher = connection.play('cool.mp3');
-		dispatcher.on('finish', async () => {
-			await msg.member.voice.channel.leave();
-		});
 	}
 
 	else if (command === 'b') {
