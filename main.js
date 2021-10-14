@@ -139,7 +139,7 @@ async function awstts(args, channel, author, auto) {
 	}
 
 	child.on('exit', async function() {
-		const dispatcher = connection.play('brian.mp3');
+		connection.play('brian.mp3');
 	});
 }
 
