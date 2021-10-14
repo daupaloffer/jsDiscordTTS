@@ -67,7 +67,7 @@ bot.on('message', async msg => {
 	else if (command === '.hmm') {
 		let thing = args.join(' ');
 		var num = Math.floor(Math.random() * 100) + 0;
-		await msg.reply('I give '+thing+' **'+num+'%** <:smile:503737897812230144>');
+		await msg.reply('I give '+thing+' **'+num+'%** :slight_smile:');
 	}
 
 	else if (command === '.on') {
