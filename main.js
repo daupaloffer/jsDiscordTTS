@@ -3,7 +3,6 @@ const gTTS = require('gtts');
 const utf8 = require('utf8');
 const fs = require('fs');
 const exec = require('child_process');
-const debug = require('console');
 
 const bot = new discord.Client();
 const prefix = '';
@@ -108,7 +107,7 @@ async function awstts(args, channel, author, auto) {
 	console.log('Joining voice chanel..');
 	const connection = await channel.join();
 
-	
+
 	// Make this into a database in the future, I know it's godawful to have it like this
 	let child
 	if (author === '260065470974001153') {
