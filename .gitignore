@@ -7,7 +7,7 @@ brian.mp3
 .cool.swp
 
 # Ignore private token files
-discord_token
+config.json
 
 # Logs
 logs
