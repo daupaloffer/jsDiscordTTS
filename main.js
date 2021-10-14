@@ -14,7 +14,7 @@ var autotts = [];
 
 
 // Called on bot "ready" state
-bot.on('ready', () => {
+bot.once('ready', () => {
 	console.log('Logged in as '+bot.user.tag);
 	bot.user.setActivity('with myself', { type: 'PLAYING' });
 });
