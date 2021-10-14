@@ -6,7 +6,7 @@ const exec = require('child_process');
 
 const bot = new discord.Client();
 const prefix = '';
-const ignored_by_autotts = ['.on','.off','.hmm','tts','stop'];
+const ignored_by_autotts = ['.on','.off','.hmm','.tts','stop'];
 
 var discord_token = '';
 var autotts = [];
@@ -35,7 +35,7 @@ bot.on('message', async msg => {
 	}
 
 	// Former TTS method using gTTS (Google)
-	else if (command === 'tts') {
+	else if (command === '.tts') {
 		let tts = args.join(' ');
 		console.log(tts);
 		var gtts = new gTTS(tts, 'en');
