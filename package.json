@@ -1,7 +1,7 @@
 {
   "name": "jsdiscordtts",
   "version": "0.9",
-  "description": "A JavaScript Discord bot for TTS",
+  "description": "A JavaScript Discord bot for fancy TTS",
   "main": "cooljsbot.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
