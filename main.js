@@ -90,7 +90,7 @@ bot.on('message', async msg => {
 });
 
 
-async function awstts(args,channel,author,auto) {
+async function awstts(args, channel, author, auto) {
 	if (auto === false) {
 		let tts = args.join(' ');
 		var apos = tts.replace(/\u2019/g, "'");
