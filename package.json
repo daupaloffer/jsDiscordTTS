@@ -17,7 +17,7 @@
   },
   "homepage": "https://github.com/daupaloffer/jsDiscordTTS#readme",
   "dependencies": {
-    "@discordjs/opus": "^0.6.0",
+    "@discordjs/voice": "^0.6.0",
     "discord.js": "^13.2.0",
     "tts-cli": "^2.0.3",
     "utf8": "^3.0.0"
