@@ -22,7 +22,8 @@ bot.on('ready', () => {
 
 
 // Called on message event
-bot.on('message', async msg => {
+bot.on('messageCreate', msg => {
+	console.log('Message received');
 	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
 
@@ -44,13 +45,13 @@ bot.on('message', async msg => {
 
 	else if (command === 'stop') {
 		console.log('Stopping voice connection and dispatcher..');
-		await msg.member.voice.channel.leave();
+		msg.member.voice.channel.leave();
 	}
 
 	else if (command === '.hmm') {
 		let thing = args.join(' ');
 		var num = Math.floor(Math.random() * 100) + 0;
-		await msg.reply('I give '+thing+' **'+num+'%** :slight_smile:');
+		msg.reply('I give '+thing+' **'+num+'%** :slight_smile:');
 	}
 
 	else if (command === '.on') {
