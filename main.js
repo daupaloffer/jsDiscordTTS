@@ -10,11 +10,8 @@ const ignored_by_autotts = ['.on','.off','.hmm','stop'];
 var discord_token = '';
 var autotts = [];
 
-// Grabs the bot's token from another file
-fs.readFile('discord_token', 'utf8', function(err, data) {
-	if (err) throw err;
-	discord_token = data;
-});
+
+//bot.on("debug", console.log);
 
 
 // Called on bot "ready" state
@@ -127,5 +124,10 @@ async function awstts(args, channel, author, auto) {
 	});
 }
 
+// Grabs the bot's token from another file then login
+fs.readFile('discord_token', 'utf8', function(err, data) {
+	if (err) throw err;
+	discord_token = data.toString();
 
-bot.login(discord_token);
+	bot.login(discord_token);
+});
