@@ -86,7 +86,7 @@ bot.on('message', async msg => {
 		console.log(autotts);
 	}
 
-	if (autotts.includes(msg.author.id) && !autotts.some(v => msg.content.toString().includes(v))) {
+	if (autotts.includes(msg.author.id) && !ignored_by_autotts.some(v => msg.content.toString().includes(v))) {
 		awstts(msg.content,msg.member.voice.channel,msg.author.id,true);
 	}
 });
