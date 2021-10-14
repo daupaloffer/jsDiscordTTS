@@ -1,9 +1,9 @@
-const discord = require('discord.js');
+const { Client, Intents } = require('discord.js');
 const utf8 = require('utf8');
 const fs = require('fs');
 const exec = require('child_process');
 
-const bot = new discord.Client();
+const bot = new Client({ intents: [Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = '';
 const ignored_by_autotts = ['.on','.off','.hmm','stop'];
 
