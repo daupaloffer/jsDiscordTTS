@@ -12,19 +12,21 @@ const ignored_by_autotts = ['.on','.off','.hmm','tts','stop'];
 var discord_token = '';
 var autotts = [];
 
-
+// Grabs the bot's token from another file
 fs.readFile('discord_token', 'utf8', function(err, data) {
 	if (err) throw err;
 	discord_token = data;
 });
 
 
+// Called on bot "ready" state
 bot.on('ready', () => {
 	console.log('Logged in as '+bot.user.tag);
 	bot.user.setActivity('with myself', { type: 'PLAYING' });
 });
 
 
+// Called on message event
 bot.on('message', async msg => {
 	const args = msg.content.slice(prefix.length).trim().split(/ +/g);
 	const command = args.shift().toLowerCase();
@@ -33,6 +35,7 @@ bot.on('message', async msg => {
 		msg.reply('fuck you');
 	}
 
+	// Former TTS method using gTTS (Google)
 	else if (command === 'tts') {
 		let tts = args.join(' ');
 		console.log(tts);
@@ -90,6 +93,7 @@ bot.on('message', async msg => {
 });
 
 
+// Work with tts-cli package to interface with AWS Polly
 async function awstts(args, channel, author, auto) {
 	if (auto === false) {
 		let tts = args.join(' ');
@@ -104,9 +108,11 @@ async function awstts(args, channel, author, auto) {
 	console.log('Joining voice chanel..');
 	const connection = await channel.join();
 
+	
+	// Make this into a database in the future, I know it's godawful to have it like this
 	let child
 	if (author === '260065470974001153') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin');
+		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin'); // There is surely a better way to do this, will work on it in future
 	}
 
 	else if (author === '601968691998883861') {
