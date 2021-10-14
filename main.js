@@ -3,12 +3,14 @@ const gTTS = require('gtts');
 const utf8 = require('utf8');
 const fs = require('fs');
 const exec = require('child_process');
+const { debug } = require('console');
 
 const bot = new Discord.Client();
 const prefix = '';
+const ignored_by_autotts = ['.on','.off','.hmm','tts','stop'];
 
-var tatetts = false;
 var discord_token = '';
+var autotts = [];
 
 
 fs.readFile('discord_token', 'utf8', function(err, data) {
@@ -69,18 +71,20 @@ bot.on('message', async msg => {
 	}
 
 	else if (command === '.on') {
-		tatetts = true;
-		msg.channel.send('Auto-TTS enabled..')
-		console.log('Tate auto-TTS enabled..')
+		autotts.push(msg.author.id);
+		msg.channel.send('Auto-TTS enabled for '+msg.author.name+'..')
+		console.log('Auto-TTS enabled for '+msg.author.name+'..')
+		debug.log(autotts);
 	}
 
 	else if (command === '.off') {
-		tatetts = false;
-		msg.channel.send('Auto-TTS disabled..')
-		console.log('Tate auto-TTS disabled..')
+		autotts = autotts.filter(item === msg.author.id);
+		msg.channel.send('Auto-TTS disabled '+msg.author.name+'..')
+		console.log('Auto-TTS disabled '+msg.author.name+'..')
+		debug.log(autotts);
 	}
 
-	if (msg.author.id === '260065470974001153' && tatetts === true && !msg.content.toString().includes('.on')) {
+	if (autotts.includes(msg.author.id) && !autotts.some(v => msg.content.toString().includes(v))) {
 		awstts(msg.content,msg.member.voice.channel,msg.author.id,true);
 	}
 });
