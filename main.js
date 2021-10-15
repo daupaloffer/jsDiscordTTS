@@ -2,9 +2,11 @@ const { Client, Intents } = require('discord.js');
 const voice = require('@discordjs/voice');
 const { token } = require('./config.json');
 const utf8 = require('utf8');
+const { join } = require('path');
+const { createReadStream } = require('fs');
 const exec = require('child_process').exec;
 
-const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
+const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const prefix = '';
 const ignored_by_autotts = ['.on','.off','.hmm','stop'];
 
@@ -88,45 +90,42 @@ async function awstts(args, channel, author, auto) {
 	console.log('Joining voice chanel..');
 
 	const connection = voice.joinVoiceChannel({
-		channelId: channel,
+		channelId: channel.id,
 		guildId: channel.guild.id,
 		adapterCreator: channel.guild.voiceAdapterCreator,
 	});
 
-
 	// Make this into a database in the future, I know it's godawful to have it like this
 	let child
-	if (author === '260065470974001153') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin'); // There is surely a better way to do this, will work on it in future
+	switch (author) {
+		case '260065470974001153':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin'); // There is surely a better way to do this, will work on it in future
+			break;
+		case '601968691998883861':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ivy');
+			break;
+		case '277735371289264128':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Geraint');
+			break;
+		case '218286293170388992':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Russell');
+			break;
+		case '201762678585294849':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ruben');
+			break;
+		case '134694626832547840':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Maxim');
+			break;
+		default:
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Brian');
+			break;
 	}
 
-	else if (author === '601968691998883861') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ivy');
-	}
+	const player = voice.createAudioPlayer();
+	const resource = voice.createAudioResource(createReadStream(join(__dirname, 'brian.mp3')));
 
-	else if (author === '277735371289264128') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Geraint');
-	}
-
-	else if (author === '218286293170388992') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Russell');
-	}
-
-	else if (author === '201762678585294849') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ruben');
-	}
-
-	else if (author === '134694626832547840') {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Maxim');
-	}
-
-	else {
-		child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Brian');
-	}
-
-	child.on('exit', async function() {
-		connection.play('brian.mp3');
-	});
+	player.play(resource);
+	connection.subscribe(player);
 }
 
 bot.login(token);
