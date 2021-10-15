@@ -2,7 +2,7 @@ const { Client, Intents } = require('discord.js');
 const voice = require('@discordjs/voice');
 const { token } = require('./config.json');
 const utf8 = require('utf8');
-const exec = require('child_process');
+const exec = require('child_process').exec;
 
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefix = '';
@@ -86,6 +86,7 @@ async function awstts(args, channel, author, auto) {
 
 	var utftts = utf8.encode('<speak>'+apos+'</speak>');
 	console.log('Joining voice chanel..');
+
 	const connection = voice.joinVoiceChannel({
 		channelId: channel,
 		guildId: channel.guild.id,
