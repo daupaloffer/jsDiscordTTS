@@ -46,7 +46,8 @@ bot.on('messageCreate', async msg => {
 
 	else if (command === 'stop') {
 		console.log('Stopping voice connection and dispatcher..');
-		await msg.member.voice.channel.leave();
+		const connection = voice.getVoiceConnection(msg.member.voice.channel.guild.id);
+		connection.destroy();
 	}
 
 	else if (command === '.hmm') {
@@ -57,15 +58,15 @@ bot.on('messageCreate', async msg => {
 
 	else if (command === '.on') {
 		autotts.push(msg.author.id);
-		msg.channel.send('Auto-TTS enabled for '+msg.author.name+'..');
-		console.log('Auto-TTS enabled for '+msg.author.name+'..');
+		msg.channel.send('Auto-TTS enabled for '+msg.author.username+'..');
+		console.log('Auto-TTS enabled for '+msg.author.username+'..');
 		console.log(autotts);
 	}
 
 	else if (command === '.off') {
-		autotts = autotts.filter(item === msg.author.id);
-		msg.channel.send('Auto-TTS disabled '+msg.author.name+'..');
-		console.log('Auto-TTS disabled '+msg.author.name+'..');
+		autotts = autotts.filter(item => item !== msg.author.id);
+		msg.channel.send('Auto-TTS disabled for '+msg.author.username+'..');
+		console.log('Auto-TTS disabled for '+msg.author.username+'..');
 		console.log(autotts);
 	}
 
@@ -111,7 +112,7 @@ async function awstts(args, channel, author, auto) {
 			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Emma --engine neural');
 			break;
 		case '127390189491453952':
-			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice');
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Kendra');
 			break;
 		case '601968691998883861':
 			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Joey --engine neural');
