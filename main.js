@@ -101,20 +101,20 @@ async function awstts(args, channel, author, auto) {
 		case '260065470974001153':
 			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Justin'); // There is surely a better way to do this, will work on it in future
 			break;
-		case '601968691998883861':
+		case '440806921021292544':
 			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ivy');
 			break;
 		case '277735371289264128':
 			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Geraint');
 			break;
-		case '218286293170388992':
-			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Russell');
+		case '640016448252805121':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Emma --engine neural');
 			break;
-		case '201762678585294849':
-			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Ruben');
+		case '127390189491453952':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice');
 			break;
-		case '134694626832547840':
-			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Maxim');
+		case '601968691998883861':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Joey --engine neural');
 			break;
 		default:
 			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Brian');
@@ -122,10 +122,14 @@ async function awstts(args, channel, author, auto) {
 	}
 
 	const player = voice.createAudioPlayer();
-	const resource = voice.createAudioResource(createReadStream(join(__dirname, 'brian.mp3')));
+	
 
-	player.play(resource);
-	connection.subscribe(player);
+	child.on('exit', () => {
+		const resource = voice.createAudioResource(createReadStream(join(__dirname, 'brian.mp3')));
+		player.play(resource);
+		connection.subscribe(player);
+	});
+	
 }
 
 bot.login(token);
