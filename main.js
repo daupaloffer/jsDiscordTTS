@@ -59,15 +59,11 @@ bot.on('messageCreate', async msg => {
 	else if (command === '.on') {
 		autotts.push(msg.author.id);
 		msg.channel.send('Auto-TTS enabled for '+msg.author.username+'..');
-		console.log('Auto-TTS enabled for '+msg.author.username+'..');
-		console.log(autotts);
 	}
 
 	else if (command === '.off') {
 		autotts = autotts.filter(item => item !== msg.author.id);
 		msg.channel.send('Auto-TTS disabled for '+msg.author.username+'..');
-		console.log('Auto-TTS disabled for '+msg.author.username+'..');
-		console.log(autotts);
 	}
 
 	if (autotts.includes(msg.author.id) && !ignored_by_autotts.some(v => msg.content.toString().includes(v))) {
