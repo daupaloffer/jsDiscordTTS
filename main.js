@@ -1,4 +1,5 @@
 const { Client, Intents } = require('discord.js');
+const voice = require('@discordjs/voice');
 const { token } = require('./config.json');
 const utf8 = require('utf8');
 const exec = require('child_process');
@@ -85,7 +86,11 @@ async function awstts(args, channel, author, auto) {
 
 	var utftts = utf8.encode('<speak>'+apos+'</speak>');
 	console.log('Joining voice chanel..');
-	const connection = await channel.join();
+	const connection = voice.joinVoiceChannel({
+		channelId: channel,
+		guildId: channel.guild.id,
+		adapterCreator: channel.guild.voiceAdapterCreator,
+	});
 
 
 	// Make this into a database in the future, I know it's godawful to have it like this
