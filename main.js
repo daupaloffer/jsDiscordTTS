@@ -66,8 +66,14 @@ bot.on('messageCreate', async msg => {
 		msg.channel.send('Auto-TTS disabled for '+msg.author.username+'..');
 	}
 
-	if (msg.member.voice.channel && autotts.includes(msg.author.id) && !ignored_by_autotts.some(v => msg.content.toString().includes(v))) {
-		awstts(msg.content,msg.member.voice.channel,msg.author.id,true);
+	if (autotts.includes(msg.author.id) && !ignored_by_autotts.some(v => msg.content.toString().includes(v))) {
+		try {
+			if (msg.member.voice.channel) {
+				awstts(msg.content,msg.member.voice.channel,msg.author.id,true);
+			}
+		} catch (error) {
+			console.error(error);
+		}
 	}
 });
 
