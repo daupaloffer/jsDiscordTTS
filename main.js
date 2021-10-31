@@ -84,13 +84,10 @@ async function awstts(args, channel, author, auto) {
 		let tts = args.join(' ');
 		var apos = tts.replace(/\u2019/g, "'");
 	}
-
 	else {
 		var apos = args.toString().replace(/\u2019/g, "'");
 	}
-
 	var utftts = utf8.encode('<speak>'+apos+'</speak>');
-	console.log('Joining voice chanel..');
 
 	const connection = voice.joinVoiceChannel({
 		channelId: channel.id,
