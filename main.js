@@ -60,6 +60,19 @@ bot.on('messageCreate', async msg => {
 		await msg.reply('I give '+thing+' **'+num+'%** :slight_smile:');
 	}
 
+	else if (command === '.owo') {
+		var messageHistory = await msg.channel.messages.fetch({ limit: 2 });
+		var previousMessage = messageHistory.last();
+
+		if (!previousMessage.author.bot && previousMessage.content) {
+			var owoified = previousMessage.content.replace(/l/g,'w').replace(/r/g,'w');
+			msg.channel.send(owoified);
+		}
+		else {
+			msg.reply('try again, idiot');
+		}
+	}
+
 	else if (command === '.on') {
 		autotts.push(msg.author.id);
 		msg.channel.send('Auto-TTS enabled for '+msg.author.username+'..');
