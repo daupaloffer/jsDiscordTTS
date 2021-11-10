@@ -33,14 +33,12 @@ bot.on('messageCreate', async msg => {
 	}
 
 	else if (command === '.tts') {
-		const True = 'True';
-		if (True) {
+		try {
 			if (msg.member.voice.channel) {
 				awstts(args,msg.member.voice.channel,msg.author.id,false);
 			}
-		}
-		else {
-			console.log('Already in voice channel');
+		} catch (error) {
+			console.error(error);
 		}
 	}
 
