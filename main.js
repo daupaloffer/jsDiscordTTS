@@ -44,10 +44,14 @@ bot.on('messageCreate', async msg => {
 		}
 	}
 
-	else if (command === 'stop') {
+	else if (command === '.stop') {
 		console.log('Stopping voice connection and dispatcher..');
-		const connection = voice.getVoiceConnection(msg.member.voice.channel.guild.id);
-		connection.destroy();
+		try {
+			const connection = voice.getVoiceConnection(msg.member.voice.channel.guild.id);
+			connection.destroy();
+		} catch (error) {
+			console.error(error);
+		}
 	}
 
 	else if (command === '.hmm') {
