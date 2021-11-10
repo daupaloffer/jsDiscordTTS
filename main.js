@@ -32,7 +32,7 @@ bot.on('messageCreate', async msg => {
 		msg.reply('fuck you');
 	}
 
-	else if (command === 'b') {
+	else if (command === '.tts') {
 		const True = 'True';
 		if (True) {
 			if (msg.member.voice.channel) {
