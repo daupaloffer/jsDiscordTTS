@@ -9,7 +9,7 @@ const exec = require('child_process').exec;
 const bot = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILD_VOICE_STATES] });
 const prefix = '';
 const ignored_by_autotts = [ '.on', '.off', '.hmm', 'stop' ];
-const replaceMap = { l: 'w', r: 'w' };
+const replaceMap = { l: 'w', r: 'w', L: 'W', R: 'W' };
 
 var autotts = [];
 
@@ -64,7 +64,7 @@ bot.on('messageCreate', async msg => {
 		var previousMessage = messageHistory.last();
 
 		if (!previousMessage.author.bot && previousMessage.content) {
-			var owoified = previousMessage.content.replace(/(?:l|r)/g, match => replaceMap[match]);
+			var owoified = previousMessage.content.replace(/(?:l|r|L|R)/g, match => replaceMap[match]);
 			msg.channel.send(owoified);
 		}
 		else {
