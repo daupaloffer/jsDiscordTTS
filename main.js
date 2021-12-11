@@ -132,6 +132,9 @@ async function awstts(args, channel, author, auto) {
 		case '601968691998883861':
 			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Joey --engine neural');
 			break;
+		case '688041717559066641':
+			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Emma --engine neural');
+			break;
 		default:
 			child = exec('echo "'+utftts+'" | node_modules/tts-cli/tts.js brian.mp3 --type ssml --voice Brian');
 			break;
